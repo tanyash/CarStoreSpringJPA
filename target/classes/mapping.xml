@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN"
+        "http://Castor.exolab.org/mapping.dtd">
+<mapping>
+    <class name="com.javacources.dao.XMLDAOFactory">
+        <map-to xml="Orders"/>
+        <field name="orders" type="collection">
+            <bind-xml auto-naming="deriveByField" node="element"></bind-xml>
+        </field>
+    </class>
+
+</mapping>

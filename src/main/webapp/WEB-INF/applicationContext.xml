@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+ http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<context:component-scan base-package="com"/>
+
+    <util:properties id="storeProperties" location="classpath:store.properties.txt"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+        <!--<property name="url" value="jdbc:derby:example_db;create=true"/>-->
+        <property name="url" value="jdbc:derby:/home/tanya/IdeaProjects/db/CarStoreSpring1;create=true"/>
+
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+        <property name="packagesToScan" value="com.javacources.entity"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="generateDdl" value="true" />
+                <property name="databasePlatform" value="org.hibernate.dialect.DerbyTenSevenDialect" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="jaxbMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+        <!--<property name="mappingLocation" value="classpath:mapping.xml" />-->
+        <!--<property name="p" value="com.javacources"/>-->
+    </bean>
+
+    <bean id="xmlBinder" class="com.javacources.dao.XMLBinder" scope="singleton" depends-on="jaxbMarshaller">
+        <!--<constructor-arg index="0" ref="jaxbMarshaller"/>-->
+        <!--<constructor-arg index="1" ref="jaxbMarshaller"/>-->
+        <property name="marshaller" ref="jaxbMarshaller" />
+        <property name="unmarshaller" ref="jaxbMarshaller" />
+    </bean>
+
+    <bean id="factory" class="com.javacources.dao.DAOFactory" factory-method="getDAOFactory" scope="singleton" destroy-method="close">
+        <constructor-arg><value>#{storeProperties.whichFactory}</value></constructor-arg>
+    </bean>
+
+    <bean id="userDAO" class="com.javacources.dao.UserDAO" factory-bean="factory" factory-method="getUserDAO" scope="singleton"/>
+    <bean id="orderDAO" class="com.javacources.dao.OrderDAO" factory-bean="factory" factory-method="getOrderDAO" scope="singleton"/>
+    <bean id="carDAO" class="com.javacources.dao.CarDAO" factory-bean="factory" factory-method="getCarDAO" scope="singleton"/>
+
+    <!--<bean id="xmlFactory" parent="factory" class="com.javacources.dao.XMLDAOFactory" factory-method="getDAOFactory" scope="singleton" destroy-method="close" depends-on="xmlBinder">-->
+        <!--<constructor-arg><value>#{storeProperties.whichFactory}</value></constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<lookup-method name="getCarDAO" bean="carDAO"/>-->
+</beans>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CarStoreSpringJPA:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="CarStoreSpringJPA.war">
+      <element id="artifact" artifact-name="CarStoreSpringJPA:war exploded" />
+    </root>
+  </artifact>
+</component>

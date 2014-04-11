@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2459212327">
+    <data-source source="LOCAL" name="Derby - CarStoreSpring" uuid="8b73a858-e242-4845-8d58-53c54a05818b">
+      <driver-ref>derby.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby:$USER_HOME$/IdeaProjects/db/CarStoreSpring;create=true</jdbc-url>
+      <libraries>
+        <library>
+          <url>file:///opt/java/jdk1.7.0_51/db/lib/derby.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="Derby - CarStoreSpring1" uuid="9ace0abd-42be-4806-a6d8-0f277f18cb12">
+      <driver-ref>derby.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby:$USER_HOME$/IdeaProjects/db/CarStoreSpring1;create=true</jdbc-url>
+      <libraries>
+        <library>
+          <url>file:///opt/java/jdk1.7.0_51/db/lib/derby.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN" "http://castor.exolab.org/mapping.dtd">
+
+<mapping>
+    <description>A mapping file for our Address Book application</description>
+
+    <class name="Person">
+        <field name="name" type="string">
+            <bind-xml name="name" node="attribute" />
+        </field>
+        <field name="address" type="string" />
+        <field name="ssn" type="string" />
+        <field name="email" type="string" />
+        <field name="homePhone" type="string" />
+        <field name="workPhone" type="string" />
+    </class>
+
+    <class name="Addressbook">
+        <field name="name" type="string">
+            <bind-xml name="name" node="attribute" />
+        </field>
+        <field name="persons" type="Person" collection="collection" />
+    </class>
+
+</mapping>
